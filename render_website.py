@@ -1,35 +1,20 @@
 import json
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
-
-
-# with open("meta_data.json", "r", encoding="utf-8") as my_file:
-#     meta_data_json = my_file.read()
-
-# meta_data = json.loads(meta_data_json)
-
-# print(meta_data)
-
-
-# env = Environment(
-#     loader=FileSystemLoader('.'),
-#     autoescape=select_autoescape(['html'])
-# )
-# template = env.get_template('template.html')
-
-# rendered_page = template.render(
-#     meta_data = meta_data
-# )
-
-# with open('index.html', 'w', encoding="utf8") as file:
-#     file.write(rendered_page)
+from more_itertools import chunked
 
 
 def on_reload():
     with open("meta_data.json", "r", encoding="utf-8") as my_file:
-        meta_data_json = my_file.read()
+        books = my_file.read()
 
-    meta_data = json.loads(meta_data_json)
+    books = json.loads(books)
+
+    rows_books =  list(chunked(books, 2))
+
+    # for books in rows_books:
+    #     for book in books:
+    #         print(book)
     
     env = Environment(
         loader=FileSystemLoader('.'),
@@ -39,7 +24,7 @@ def on_reload():
     template = env.get_template('template.html')
 
     rendered_page = template.render(
-        meta_data = meta_data
+        rows_books = rows_books
     )
 
     with open('index.html', 'w', encoding="utf8") as file:

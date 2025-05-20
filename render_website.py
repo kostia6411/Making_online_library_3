@@ -3,6 +3,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
 from more_itertools import chunked
 import os
+import math
 
 
 os.makedirs("pages", exist_ok=True)
@@ -27,15 +28,17 @@ def on_reload():
 
     template = env.get_template('template.html')
 
-    for page_namber, page in enumerate(dozen_books, 1):
+    for number, page in enumerate(dozen_books, 1):
 
         rows_books =  list(chunked(page, 2))
 
         rendered_page = template.render(
-            rows_books = rows_books
+            rows_books = rows_books,
+            pages_number = len(dozen_books),
+            current_number = number
         )
 
-        with open(f'pages/index{page_namber}.html', 'w', encoding="utf8") as file:
+        with open(f'pages/index{number}.html', 'w', encoding="utf8") as file:
             file.write(rendered_page)
 
 on_reload()

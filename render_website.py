@@ -3,7 +3,6 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
 from more_itertools import chunked
 import os
-import math
 
 
 os.makedirs("pages", exist_ok=True)
@@ -16,10 +15,6 @@ def on_reload():
     books = json.loads(books)
 
     dozen_books = list(chunked(books, 10))
-
-    # for books in rows_books:
-    #     for book in books:
-    #         print(book)
     
     env = Environment(
         loader=FileSystemLoader('.'),

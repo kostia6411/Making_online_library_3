@@ -6,16 +6,16 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
 from more_itertools import chunked
 
-os.makedirs("pages", exist_ok=True)
+os.makedirs('pages', exist_ok=True)
 
 
 def on_reload():
 
     parser = argparse.ArgumentParser(description='Запускает локальный сервер для онлайн библиотеки')
-    parser.add_argument('--file_path', default="meta_data.json")
+    parser.add_argument('--file_path', default='meta_data.json')
     args = parser.parse_args()
 
-    with open(args.file_path, "r", encoding="utf-8") as my_file:
+    with open(args.file_path, 'r', encoding='utf-8') as my_file:
         books = json.loads(books)
 
     number_books_page = 10
@@ -41,7 +41,7 @@ def on_reload():
             current_number = number
         )
 
-        with open(f'pages/index{number}.html', 'w', encoding="utf8") as file:
+        with open(f'pages/index{number}.html', 'w', encoding='utf8') as file:
             file.write(rendered_page)
 
 

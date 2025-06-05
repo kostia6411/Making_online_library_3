@@ -1,5 +1,6 @@
 import json
 import os
+import argparse
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
@@ -9,7 +10,12 @@ os.makedirs("pages", exist_ok=True)
 
 
 def on_reload():
-    with open("meta_data.json", "r", encoding="utf-8") as my_file:
+
+    parser = argparse.ArgumentParser(description='Запускает локальный сервер для онлайн библиотеки')
+    parser.add_argument('--file_path', default="meta_data.json")
+    args = parser.parse_args()
+
+    with open(args.file_path, "r", encoding="utf-8") as my_file:
         books = my_file.read()
 
     books = json.loads(books)

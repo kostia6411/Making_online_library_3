@@ -16,9 +16,7 @@ def on_reload():
     args = parser.parse_args()
 
     with open(args.file_path, "r", encoding="utf-8") as my_file:
-        books = my_file.read()
-
-    books = json.loads(books)
+        books = json.loads(books)
 
     dozen_books = list(chunked(books, 10))
     

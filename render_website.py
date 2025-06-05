@@ -18,7 +18,9 @@ def on_reload():
     with open(args.file_path, "r", encoding="utf-8") as my_file:
         books = json.loads(books)
 
-    dozen_books = list(chunked(books, 10))
+    number_books_page = 10
+
+    dozen_books = list(chunked(books, number_books_page))
     
     env = Environment(
         loader=FileSystemLoader('.'),
@@ -27,9 +29,11 @@ def on_reload():
 
     template = env.get_template('template.html')
 
+    number_book_columns = 2
+
     for number, page in enumerate(dozen_books, 1):
 
-        rows_books =  list(chunked(page, 2))
+        rows_books =  list(chunked(page, number_book_columns))
 
         rendered_page = template.render(
             rows_books = rows_books,

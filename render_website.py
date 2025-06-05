@@ -44,10 +44,12 @@ def on_reload():
         with open(f'pages/index{number}.html', 'w', encoding="utf8") as file:
             file.write(rendered_page)
 
-on_reload()
 
-server = Server()
+if __name__ == '__main__':
+    on_reload()
 
-server.watch('template.html', on_reload)
+    server = Server()
 
-server.serve(root='.')
+    server.watch('template.html', on_reload)
+
+    server.serve(root='.')

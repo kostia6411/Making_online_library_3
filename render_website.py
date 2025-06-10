@@ -16,7 +16,7 @@ def on_reload():
     args = parser.parse_args()
 
     with open(args.file_path, 'r', encoding='utf-8') as my_file:
-        books = json.loads(books)
+        books = json.load(my_file)
 
     number_books_page = 10
 

@@ -6,8 +6,6 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
 from more_itertools import chunked
 
-os.makedirs('pages', exist_ok=True)
-
 
 def on_reload():
 
@@ -45,7 +43,9 @@ def on_reload():
             file.write(rendered_page)
 
 
-if __name__ == '__main__':
+def main():
+    os.makedirs('pages', exist_ok=True)
+
     on_reload()
 
     server = Server()
@@ -53,3 +53,7 @@ if __name__ == '__main__':
     server.watch('template.html', on_reload)
 
     server.serve(root='.')
+
+
+if __name__ == '__main__':
+    main()
